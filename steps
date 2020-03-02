@@ -1,0 +1,32 @@
+
+1. first place the phpmailer_lib.php file in application/libraries folder
+2. unzip the phpmailerzip and place it in application/thirdparty/ folder
+3. change the code in controller action as follows
+
+
+ $this->load->library('phpmailer_lib');
+
+//for sending
+
+
+  $mail = $this->phpmailer_lib->load();
+            $mail->setFrom('mohan.gundu@softthink.com');
+            $mail->addAddress($email);
+            $mail->Subject = "Regarding Creating New User";
+            $mail->isHTML(true);
+            $subData['fname'] = $firstname;
+            $subData['lname'] = $lastname;
+            $subData['username'] = $email;
+            $subData['emailaddress'] = $email;
+            //  $subData['password'] = $password;
+          
+            $mailContent =$this->load->view('/mail/newUserTemplate', $subData, true);
+            $mail->Body = $mailContent;
+          
+            if(!$mail->send()) {
+                //   redirect('/Site/index');
+            }
+            else {
+                // redirect('/Site/index');
+                $successFlag =1;
+            }
